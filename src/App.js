@@ -3,13 +3,13 @@ import contactsJSON from "./contacts.json";
 import { useState } from "react";
 
 function App() {
-  const [contacts, setContacts] = useState(contactsJSON.splice(0, 5));
+  const [contacts, setContacts] = useState(contactsJSON.slice(0, 5));
   let contactsArray = [...contacts];
 
   const addRandomContacts = () => {
     const randomContacts =
       contactsJSON[Math.floor(Math.random() * contactsJSON.length)];
-
+    
     setContacts([...contacts, randomContacts]);
   };
 
@@ -26,14 +26,12 @@ function App() {
     setContacts(contactsArray);
   };
 
-   const deleteContacts = (contactsId) => {
-
-     const contactsNoDeleted = contactsArray.filter((contact) => {
-       return contact.id !== contactsId ;
-     });
-     setContacts(contactsNoDeleted);
-    
-   };
+  const deleteContacts = (contactsId) => {
+    const contactsNoDeleted = contactsArray.filter((contact) => {
+      return contact.id !== contactsId;
+    });
+    setContacts(contactsNoDeleted);
+  };
 
   return (
     <div className="tableCelebrity">
@@ -51,13 +49,11 @@ function App() {
           </button>
         </div>
 
-        <tr>
-          <th> Picture </th>
-          <th> Name </th>
-          <th> Popularity </th>
-          <th> Won Oscar</th>
-          <th> Won Emmy</th>
-        </tr>
+        <th> Picture </th>
+        <th> Name </th>
+        <th> Popularity </th>
+        <th> Won Oscar</th>
+        <th> Won Emmy</th>
 
         {contacts.map((celebrity) => {
           return (
@@ -73,10 +69,12 @@ function App() {
               <td>{celebrity.wonOscar ? "🏆" : ""}</td>
               <td>{celebrity.wonEmmy ? "🏆" : ""}</td>
               <button
-                onClick={() => {deleteContacts(celebrity.id)
+                onClick={() => {
+                  deleteContacts(celebrity.id);
                 }}
                 className="btn btn-danger"
-              >Delete
+              >
+                Delete
               </button>
             </table>
           );
